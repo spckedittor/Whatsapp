@@ -1,7 +1,7 @@
 {
   "name": "Benim Haber Sitem",
   "short_name": "Haber",
-  "start_url": "whatsapp/",
+  "start_url": "Whatsapp/",
   "scope": "/Whatsapp/",
   "display": "standalone",
   "background_color": "#000000",
