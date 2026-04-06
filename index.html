@@ -3,10 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=Edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
   <title>HTML</title>
-    <!-- PWA Meta Tag'leri -->
+  <!-- PWA Meta Tag'leri -->
 <meta name="theme-color" content="#000000">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -74,7 +75,7 @@
           </svg>
         </button>
         <img src="Lolo.JPG" onerror="this.src='default-avatar.png'" class="profile-img">
-        <label class="isim">Arda</label>
+        <label class="isim">bahat</label>
 
       </div>
     </div>
@@ -162,13 +163,15 @@
         </button>
     </div>
   </div>
-  <script>
+<!-- Service Worker Kaydı -->
+<script>
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('sw.js')
       .then(reg => console.log('SW çalışıyor'))
       .catch(err => console.log('SW hatası:', err));
   }
-  </script>
-  <script src="main.js"></script>
+</script>
+
+<script src="main.js"></script>
 </body>
 </html>
