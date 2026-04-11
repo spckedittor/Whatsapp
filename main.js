@@ -117,7 +117,7 @@ async function mesajGonder() {
   // Eğer Supabase bağlandıysa gönder
   if (supabaseClient) {
     try {
-      await window.supabaseClient.from('mesajlar').insert([
+      await supabaseClient.from('mesajlar').insert([
         {
           kullanici_id: MY_ID,
           mesaj_icerik: metin,
@@ -206,7 +206,7 @@ if (kameraBtn) {
         // Supabase
         if (supabaseClient) {
           try {
-            await window.supabaseClient.from('mesajlar').insert([
+            await supabaseClient.from('mesajlar').insert([
               {
                 kullanici_id: MY_ID,
                 mesaj_icerik: '📷 Fotoğraf',
