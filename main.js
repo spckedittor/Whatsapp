@@ -1,11 +1,10 @@
-// ==================== SUPABASE (EN ÜSTE - DEĞİŞKEN İSMİ DEĞİŞTİ) ====================
-let supabaseClient = null; // 'supabase' yerine 'supabaseClient' kullan
+// ==================== SUPABASE (GLOBAL) ====================
+window.supabaseClient = null;
 
-// Global window.supabase var mı kontrol et
 if (typeof window.supabase !== 'undefined' && window.supabase.createClient) {
   const SUPABASE_URL = 'https://cvmwprfzsfqpeqmthjfe.supabase.co';
   const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImN2bXdwcmZ6c2ZxcGVxbXRoamZlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU5MjkxMzAsImV4cCI6MjA5MTUwNTEzMH0.w041DWrkIHmab2bXhSYYBly0ZouT_YaJcFXrYta70GA';
-  supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+  window.supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
   console.log('✅ Supabase bağlandı');
 } else {
   console.warn('⚠️ Supabase CDN yüklenemedi, sadece localStorage çalışacak');
@@ -15,7 +14,7 @@ if (typeof window.supabase !== 'undefined' && window.supabase.createClient) {
 const MY_ID = localStorage.getItem('myid') || 'u' + Math.random().toString(36).substr(2, 9);
 localStorage.setItem('myid', MY_ID);
 
-// ==================== AYARLAR (DEĞİŞMEDİ) ====================
+// ==================== AYARLAR ====================
 const checkbox = document.getElementById("yakala");
 const MESAJ_ANAHTARI = 'sohbet_mesajlari';
 const KULLANICI_ID = 'ben';
@@ -23,7 +22,7 @@ const KULLANICI_ADI = 'Sen';
 const KARSIDAKI_ID = 'arda';
 const KARSIDAKI_ADI = 'Arda';
 
-// ==================== TEMA (DEĞİŞMEDİ) ====================
+// ==================== TEMA ====================
 function guncelle() {
   if (checkbox.checked) {
     document.body.style.backgroundImage = "url('oyy.jpeg')";
@@ -40,7 +39,7 @@ if (localStorage.getItem("toggleState") === "on") checkbox.checked = true;
 guncelle();
 checkbox.addEventListener("change", guncelle);
 
-// ==================== YAZIYOR (DEĞİŞMEDİ) ====================
+// ==================== YAZIYOR ====================
 const input = document.querySelector(".input");
 const yaziyor = document.getElementById("yaziyor");
 let yazmaTimeout;
@@ -107,17 +106,16 @@ function mesajlariGoster() {
   govde.scrollTop = govde.scrollHeight;
 }
 
-// MESAJ GÖNDER - supabaseClient kullan
+// MESAJ GÖNDER
 async function mesajGonder() {
   const metin = input.value.trim();
   if (!metin) return;
   
   console.log('Mesaj gönderiliyor:', metin);
   
-  // Eğer Supabase bağlandıysa gönder
-  if (supabaseClient) {
+  if (window.supabaseClient) {
     try {
-      await supabaseClient.from('mesajlar').insert([
+      await window.supabaseClient.from('Spckeddittorsapi').insert([
         {
           kullanici_id: MY_ID,
           mesaj_icerik: metin,
@@ -128,11 +126,8 @@ async function mesajGonder() {
     } catch (err) {
       console.error('❌ Supabase hatası:', err);
     }
-  } else {
-    console.log('ℹ️ Supabase yok, sadece localStorage');
   }
   
-  // Local'e kaydet (HER ZAMAN çalışır)
   const mesajlar = db.yukle();
   mesajlar.push({
     id: Date.now().toString(),
@@ -148,17 +143,17 @@ async function mesajGonder() {
   input.value = '';
 }
 
-// Eventler
 ucakBtn.addEventListener('click', mesajGonder);
 input.addEventListener('keypress', (e) => {
   if (e.key === 'Enter') mesajGonder();
 });
 
-// GERÇEK ZAMANLI - supabaseClient kullan
-if (supabaseClient) {
-  supabaseClient
-    .channel('mesajlar')
-    .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'mesajlar' }, payload => {
+// GERÇEK ZAMANLI
+if (window.supabaseClient) {
+  window.supabaseClient
+    .channel('Spckeddittorsapi')
+    .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'Spckeddittorsapi' }, payload => {
+      console.log('📨 Yeni mesaj geldi:', payload.new);
       const yeni = payload.new;
       
       if (yeni.kullanici_id !== MY_ID) {
@@ -168,7 +163,7 @@ if (supabaseClient) {
           metin: yeni.mesaj_icerik,
           gonderen: KARSIDAKI_ID,
           ad: KARSIDAKI_ADI,
-          zaman: yeni.gonderim_tarihi
+          zaman: new Date().toISOString()
         });
         db.kaydet(mesajlar);
         mesajlariGoster();
@@ -178,11 +173,10 @@ if (supabaseClient) {
   console.log('✅ Realtime dinleme başladı');
 }
 
-// Sayfa açılınca
 mesajlariGoster();
-console.log('📱 MY_ID:', MY_ID);
+console.log('📂 MY_ID:', MY_ID);
 
-// ==================== FOTOĞRAF (supabaseClient kullan) ====================
+// ==================== FOTOĞRAF ====================
 const kameraBtn = document.querySelector('.kamera');
 
 if (kameraBtn) {
@@ -203,10 +197,9 @@ if (kameraBtn) {
       reader.onload = async function(event) {
         const fotoBase64 = event.target.result;
         
-        // Supabase
-        if (supabaseClient) {
+        if (window.supabaseClient) {
           try {
-            await supabaseClient.from('mesajlar').insert([
+            await window.supabaseClient.from('Spckeddittorsapi').insert([
               {
                 kullanici_id: MY_ID,
                 mesaj_icerik: '📷 Fotoğraf',
@@ -214,12 +207,12 @@ if (kameraBtn) {
                 tip: 'foto'
               }
             ]);
+            console.log('✅ Fotoğraf Supabase\'e kaydedildi');
           } catch (err) {
-            console.error('Fotoğraf hatası:', err);
+            console.error('❌ Fotoğraf hatası:', err);
           }
         }
         
-        // Local
         const mesajlar = db.yukle();
         mesajlar.push({
           id: Date.now().toString(),
@@ -243,4 +236,3 @@ if (kameraBtn) {
     fileInput.click();
   });
 }
-
