@@ -236,3 +236,48 @@ if (kameraBtn) {
     fileInput.click();
   });
 }
+
+// Sayfa açılınca Supabase'deki tüm mesajları al (kaçırılanlar için)
+async function supabaseMesajlariAl() {
+  if (!window.supabaseClient) return;
+  
+  const { data, error } = await window.supabaseClient
+    .from('spckedittorsapi')
+    .select('*')
+    .order('id', { ascending: true });
+  
+  if (error) {
+    console.error('Mesaj alma hatası:', error);
+    return;
+  }
+  
+  if (data && data.length > 0) {
+    const mesajlar = db.yukle();
+    let yeniMesajVar = false;
+    
+    data.forEach(supMesaj => {
+      const varMi = mesajlar.some(m => m.id == supMesaj.id);
+      if (!varMi) {
+        mesajlar.push({
+          id: supMesaj.id,
+          metin: supMesaj.mesaj_icerik,
+          foto: supMesaj.foto,
+          tip: supMesaj.tip || 'metin',
+          gonderen: supMesaj.kullanici_id === MY_ID ? KULLANICI_ID : KARSIDAKI_ID,
+          ad: supMesaj.kullanici_id === MY_ID ? KULLANICI_ADI : KARSIDAKI_ADI,
+          zaman: supMesaj.gonderim_tarihi || new Date().toISOString()
+        });
+        yeniMesajVar = true;
+      }
+    });
+    
+    if (yeniMesajVar) {
+      db.kaydet(mesajlar);
+      mesajlariGoster();
+      console.log('✅ Kaçırılan mesajlar yüklendi');
+    }
+  }
+}
+
+// Sayfa açılınca çalıştır (mesajlariGoster'den hemen sonra)
+supabaseMesajlariAl();
