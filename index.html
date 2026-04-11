@@ -202,15 +202,6 @@
       .catch(err => console.log('SW hatası:', err));
   }
 </script>
-<script>
-  // Supabase yüklenene kadar bekle
-  if (typeof window.supabase === 'undefined') {
-    console.error('SUPABASE YÜKLENMEDİ!');
-    alert('Supabase yüklenemedi. İnternet bağlantını kontrol et.');
-  } else {
-    console.log('Supabase hazır:', window.supabase);
-  }
-</script>
 
 
 <!-- Supabase JS Client -->
