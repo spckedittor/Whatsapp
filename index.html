@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=Edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   
   <title>HTML</title>
@@ -11,7 +11,7 @@
 <meta name="theme-color" content="#000000">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Watsapp">
+<meta name="apple-mobile-web-app-title" content="watsapp">
 
 <!-- Manifest -->
 <link rel="manifest" href="manifest.json">
@@ -40,12 +40,24 @@
         <label for="menu" class="cizgi">☰</label>
   
         <div class="yan">
-          <a href="#">Profil</a>
-          <a href="#">Kullanıcılar</a>
-          <a href="#">Arkadaşlar</a>
-          <a href="#">Ana Sayfa</a>
-          <a href="#">Ayarlar</a>
+          <label class="yazimenu">MENU</label>
+          <a href="profil.html">Profil</a>
+          <a href="kullanicilar.html" >Kullanıcılar</a>
+          <a href="arkadaslar.html">Arkadaşlar</a>
+          <a href="anasayfa.html">Ana Sayfa</a>
+          <a href="ayarlar.html">Ayarlar</a>
           <a href="#">Çıkış Yap</a>
+          
+          <!-- YENİ: Arkadaşlar sayfası (başta gizli) -->
+          <div id="arkadaslar-sayfasi" class="sayfa" style="display: none;">
+            <div class="sayfa-baslik">
+              <button onclick="sayfaGoster('sohbet')" class="geri-btn"></button>
+              <h2>Arkadaşlarım</h2>
+            </div>
+          <div class="arkadaslar-listesi" id="arkadaslar-listesi">
+    <!-- Arkadaşlar JS ile buraya gelecek -->
+  </div>
+</div>
 
           <label class="temalabel">
             <input type="checkbox" id="yakala">
@@ -53,7 +65,24 @@
               <div class="circle"></div>
             </div>
           </label>
+       
+        <div class="ikons">
+          <a href="https://github.com/spckedittor" target="_blank" class="ikon google">
+            <i class="fab fa-google"></i>
+          </a>
+          
+          <a href="https://github.com/spckedittor" target="_blank" class="ikon google">
+            <i class="fab fa-facebook"></i>
+          </a>
+          
+          <a href="https://github.com/spckedittor" target="_blank" class="ikon google">
+            <i class="fab fa-github"></i>
+          </a>
         </div>
+        <div class="moreinformations">
+          <a href="github.com" class="moreinformation">İnformation</a>
+        </div>
+      </div>
         
         <button id="goruntulu" class="video-call-btn">
           <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="white" stroke-width="2">
@@ -75,7 +104,8 @@
           </svg>
         </button>
         <img src="Lolo.JPG" onerror="this.src='default-avatar.png'" class="profile-img">
-        <label class="isim">bahat</label>
+        <label class="isim">arda</label>
+        <div id="yaziyor">yazıyor...</div>
 
       </div>
     </div>
@@ -161,6 +191,7 @@
             <circle cx="12" cy="13" r="4" stroke="currentColor" stroke-width="1.8" fill="none" />
           </svg>
         </button>
+        
     </div>
   </div>
 <!-- Service Worker Kaydı -->
@@ -171,7 +202,19 @@
       .catch(err => console.log('SW hatası:', err));
   }
 </script>
+<script>
+  // Supabase yüklenene kadar bekle
+  if (typeof window.supabase === 'undefined') {
+    console.error('SUPABASE YÜKLENMEDİ!');
+    alert('Supabase yüklenemedi. İnternet bağlantını kontrol et.');
+  } else {
+    console.log('Supabase hazır:', window.supabase);
+  }
+</script>
 
+
+<!-- Supabase JS Client -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="main.js"></script>
 </body>
 </html>
