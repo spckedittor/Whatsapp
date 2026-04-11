@@ -115,7 +115,7 @@ async function mesajGonder() {
   
   if (window.supabaseClient) {
     try {
-      await window.supabaseClient.from('Spckeddittorsapi').insert([
+      await window.supabaseClient.from('Spckedittorsapi').insert([
         {
           kullanici_id: MY_ID,
           mesaj_icerik: metin,
@@ -151,8 +151,8 @@ input.addEventListener('keypress', (e) => {
 // GERÇEK ZAMANLI
 if (window.supabaseClient) {
   window.supabaseClient
-    .channel('Spckeddittorsapi')
-    .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'Spckeddittorsapi' }, payload => {
+    .channel('Spckedittorsapi')
+    .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'Spckedittorsapi' }, payload => {
       console.log('📨 Yeni mesaj geldi:', payload.new);
       const yeni = payload.new;
       
@@ -199,7 +199,7 @@ if (kameraBtn) {
         
         if (window.supabaseClient) {
           try {
-            await window.supabaseClient.from('Spckeddittorsapi').insert([
+            await window.supabaseClient.from('Spckedittorsapi').insert([
               {
                 kullanici_id: MY_ID,
                 mesaj_icerik: '📷 Fotoğraf',
