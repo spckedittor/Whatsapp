@@ -112,7 +112,6 @@ function mesajlariGoster() {
   govde.scrollTop = govde.scrollHeight;
 }
 
-// MESAJ GÖNDER
 async function mesajGonder() {
   if (!input) return;
   const metin = input.value.trim();
@@ -131,30 +130,11 @@ async function mesajGonder() {
         }
       ]);
       console.log('✅ Supabase\'e gönderildi');
+      input.value = ''; // input temizlendi
     } catch (err) {
       console.error('❌ Supabase hatası:', err);
     }
   }
-  
-  const mesajlar = db.yukle();
-  mesajlar.push({
-    id: Date.now().toString(),
-    metin: metin,
-    gonderen: BENIM_ID,
-    ad: BENIM_ADIM,
-    zaman: new Date().toISOString()
-  });
-  
-  db.kaydet(mesajlar);
-  mesajlariGoster();
-  input.value = '';
-}
-
-if (ucakBtn) ucakBtn.addEventListener('click', mesajGonder);
-if (input) {
-  input.addEventListener('keypress', (e) => {
-    if (e.key === 'Enter') mesajGonder();
-  });
 }
 
 // GERÇEK ZAMANLI
