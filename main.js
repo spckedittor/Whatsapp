@@ -7,50 +7,53 @@ if (typeof window.supabase !== 'undefined' && window.supabase.createClient) {
   window.supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
   console.log('✅ Supabase bağlandı');
 } else {
-  console.warn('⚠️ Supabase CDN yüklenemedi, sadece localStorage çalışacak');
+  console.warn('⚠️ Supabase CDN yüklenemedi');
 }
 
-// Rastgele kullanıcı ID
-const MY_ID = localStorage.getItem('myid') || 'u' + Math.random().toString(36).substr(2, 9);
-localStorage.setItem('myid', MY_ID);
+// ==================== KULLANICI BİLGİLERİ ====================
+const BENIM_ADIM = localStorage.getItem('kullanici_adi') || 'Misafir';
+const BENIM_ID = localStorage.getItem('kullanici_id') || 'misafir_' + Math.random().toString(36).substr(2, 9);
+
+console.log('👤 Hoş geldin:', BENIM_ADIM);
+console.log('🆔 ID:', BENIM_ID);
 
 // ==================== AYARLAR ====================
 const checkbox = document.getElementById("yakala");
 const MESAJ_ANAHTARI = 'sohbet_mesajlari';
-const KULLANICI_ID = 'ben';
-const KULLANICI_ADI = 'Sen';
-const KARSIDAKI_ID = 'arda';
-const KARSIDAKI_ADI = 'Arda';
 
 // ==================== TEMA ====================
 function guncelle() {
-  if (checkbox.checked) {
+  if (checkbox && checkbox.checked) {
     document.body.style.backgroundImage = "url('oyy.jpeg')";
     document.body.classList.add("dark");
     localStorage.setItem("toggleState", "on");
-  } else {
+  } else if (checkbox) {
     document.body.style.backgroundImage = "url('olo.jpeg')";
     document.body.classList.remove("dark");
     localStorage.setItem("toggleState", "off");
   }
 }
 
-if (localStorage.getItem("toggleState") === "on") checkbox.checked = true;
-guncelle();
-checkbox.addEventListener("change", guncelle);
+if (checkbox) {
+  if (localStorage.getItem("toggleState") === "on") checkbox.checked = true;
+  guncelle();
+  checkbox.addEventListener("change", guncelle);
+}
 
 // ==================== YAZIYOR ====================
 const input = document.querySelector(".input");
 const yaziyor = document.getElementById("yaziyor");
 let yazmaTimeout;
 
-input.addEventListener("input", () => {
-  yaziyor.style.display = "block";
-  clearTimeout(yazmaTimeout);
-  yazmaTimeout = setTimeout(() => {
-    yaziyor.style.display = "none";
-  }, 1000);
-});
+if (input) {
+  input.addEventListener("input", () => {
+    if (yaziyor) yaziyor.style.display = "block";
+    clearTimeout(yazmaTimeout);
+    yazmaTimeout = setTimeout(() => {
+      if (yaziyor) yaziyor.style.display = "none";
+    }, 1000);
+  });
+}
 
 // ==================== MESAJ SİSTEMİ ====================
 const govde = document.querySelector('.govde');
@@ -68,8 +71,9 @@ const db = {
 
 function mesajOlustur(mesaj) {
   const div = document.createElement('div');
-  const benimMi = mesaj.gonderen === KULLANICI_ID;
+  const benimMi = mesaj.gonderen === BENIM_ID;
   
+  // Eski class sistemine dön
   div.className = `mesaj ${benimMi ? 'ben' : 'karsi'}`;
   
   const saat = new Date(mesaj.zaman).toLocaleTimeString('tr-TR', {
@@ -77,7 +81,8 @@ function mesajOlustur(mesaj) {
     minute: '2-digit'
   });
   
-  const gosterilenAd = benimMi ? KULLANICI_ADI : (mesaj.ad || KARSIDAKI_ADI);
+  // Gösterilecek isim: kendi mesajınsa "Sen", değilse atan kişinin adı
+  const gosterilenAd = benimMi ? 'Sen' : (mesaj.ad || mesaj.kullanici_adi || 'Anonim');
   
   let icerikHTML;
   if (mesaj.tip === 'foto' && mesaj.foto) {
@@ -96,6 +101,7 @@ function mesajOlustur(mesaj) {
 }
 
 function mesajlariGoster() {
+  if (!govde) return;
   govde.innerHTML = '';
   const mesajlar = db.yukle();
   
@@ -108,6 +114,7 @@ function mesajlariGoster() {
 
 // MESAJ GÖNDER
 async function mesajGonder() {
+  if (!input) return;
   const metin = input.value.trim();
   if (!metin) return;
   
@@ -117,7 +124,8 @@ async function mesajGonder() {
     try {
       await window.supabaseClient.from('spckedittorsapi').insert([
         {
-          kullanici_id: MY_ID,
+          kullanici_id: BENIM_ID,
+          kullanici_adi: BENIM_ADIM,
           mesaj_icerik: metin,
           tip: 'metin'
         }
@@ -132,9 +140,8 @@ async function mesajGonder() {
   mesajlar.push({
     id: Date.now().toString(),
     metin: metin,
-    gonderen: KULLANICI_ID,
-    ad: KULLANICI_ADI,
-    alici: KARSIDAKI_ID,
+    gonderen: BENIM_ID,
+    ad: BENIM_ADIM,
     zaman: new Date().toISOString()
   });
   
@@ -143,10 +150,12 @@ async function mesajGonder() {
   input.value = '';
 }
 
-ucakBtn.addEventListener('click', mesajGonder);
-input.addEventListener('keypress', (e) => {
-  if (e.key === 'Enter') mesajGonder();
-});
+if (ucakBtn) ucakBtn.addEventListener('click', mesajGonder);
+if (input) {
+  input.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') mesajGonder();
+  });
+}
 
 // GERÇEK ZAMANLI
 if (window.supabaseClient) {
@@ -156,25 +165,69 @@ if (window.supabaseClient) {
       console.log('📨 Yeni mesaj geldi:', payload.new);
       const yeni = payload.new;
       
-      if (yeni.kullanici_id !== MY_ID) {
-        const mesajlar = db.yukle();
-        mesajlar.push({
-          id: yeni.id,
-          metin: yeni.mesaj_icerik,
-          gonderen: KARSIDAKI_ID,
-          ad: KARSIDAKI_ADI,
-          zaman: new Date().toISOString()
-        });
-        db.kaydet(mesajlar);
-        mesajlariGoster();
-      }
+      const mesajlar = db.yukle();
+      mesajlar.push({
+        id: yeni.id,
+        metin: yeni.mesaj_icerik,
+        gonderen: yeni.kullanici_id,
+        ad: yeni.kullanici_adi || 'Anonim',
+        zaman: yeni.gonderim_tarihi || new Date().toISOString()
+      });
+      db.kaydet(mesajlar);
+      mesajlariGoster();
     })
     .subscribe();
   console.log('✅ Realtime dinleme başladı');
 }
 
+// Sayfa açılınca Supabase'deki son mesajları getir
+async function sonMesajlariGetir() {
+  if (!window.supabaseClient) return;
+  
+  const { data, error } = await window.supabaseClient
+    .from('spckedittorsapi')
+    .select('*')
+    .order('id', { ascending: false })
+    .limit(50);
+  
+  if (error) {
+    console.error('Hata:', error);
+    return;
+  }
+  
+  if (data && data.length > 0) {
+    const mesajlar = db.yukle();
+    let yeniMesajVar = false;
+    
+    data.reverse().forEach(supMesaj => {
+      const varMi = mesajlar.some(m => m.id == supMesaj.id);
+      if (!varMi) {
+        mesajlar.push({
+          id: supMesaj.id,
+          metin: supMesaj.mesaj_icerik,
+          gonderen: supMesaj.kullanici_id,
+          ad: supMesaj.kullanici_adi || 'Anonim',
+          zaman: supMesaj.gonderim_tarihi || new Date().toISOString()
+        });
+        yeniMesajVar = true;
+      }
+    });
+    
+    if (yeniMesajVar) {
+      db.kaydet(mesajlar);
+      mesajlariGoster();
+    }
+  }
+}
+
 mesajlariGoster();
-console.log('📂 MY_ID:', MY_ID);
+sonMesajlariGetir();
+
+// Üstteki isim alanını güncelle
+const isimAlani = document.getElementById('karsiAd');
+if (isimAlani) {
+    isimAlani.textContent = BENIM_ADIM;
+}
 
 // ==================== FOTOĞRAF ====================
 const kameraBtn = document.querySelector('.kamera');
@@ -201,7 +254,8 @@ if (kameraBtn) {
           try {
             await window.supabaseClient.from('spckedittorsapi').insert([
               {
-                kullanici_id: MY_ID,
+                kullanici_id: BENIM_ID,
+                kullanici_adi: BENIM_ADIM,
                 mesaj_icerik: '📷 Fotoğraf',
                 foto: fotoBase64,
                 tip: 'foto'
@@ -219,9 +273,8 @@ if (kameraBtn) {
           metin: '📷 Fotoğraf',
           foto: fotoBase64,
           tip: 'foto',
-          gonderen: KULLANICI_ID,
-          ad: KULLANICI_ADI,
-          alici: KARSIDAKI_ID,
+          gonderen: BENIM_ID,
+          ad: BENIM_ADIM,
           zaman: new Date().toISOString()
         });
         
@@ -236,48 +289,3 @@ if (kameraBtn) {
     fileInput.click();
   });
 }
-
-// Sayfa açılınca Supabase'deki tüm mesajları al (kaçırılanlar için)
-async function supabaseMesajlariAl() {
-  if (!window.supabaseClient) return;
-  
-  const { data, error } = await window.supabaseClient
-    .from('spckedittorsapi')
-    .select('*')
-    .order('id', { ascending: true });
-  
-  if (error) {
-    console.error('Mesaj alma hatası:', error);
-    return;
-  }
-  
-  if (data && data.length > 0) {
-    const mesajlar = db.yukle();
-    let yeniMesajVar = false;
-    
-    data.forEach(supMesaj => {
-      const varMi = mesajlar.some(m => m.id == supMesaj.id);
-      if (!varMi) {
-        mesajlar.push({
-          id: supMesaj.id,
-          metin: supMesaj.mesaj_icerik,
-          foto: supMesaj.foto,
-          tip: supMesaj.tip || 'metin',
-          gonderen: supMesaj.kullanici_id === MY_ID ? KULLANICI_ID : KARSIDAKI_ID,
-          ad: supMesaj.kullanici_id === MY_ID ? KULLANICI_ADI : KARSIDAKI_ADI,
-          zaman: supMesaj.gonderim_tarihi || new Date().toISOString()
-        });
-        yeniMesajVar = true;
-      }
-    });
-    
-    if (yeniMesajVar) {
-      db.kaydet(mesajlar);
-      mesajlariGoster();
-      console.log('✅ Kaçırılan mesajlar yüklendi');
-    }
-  }
-}
-
-// Sayfa açılınca çalıştır (mesajlariGoster'den hemen sonra)
-supabaseMesajlariAl();
