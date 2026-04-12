@@ -15,7 +15,6 @@ const BENIM_ADIM = localStorage.getItem('kullanici_adi') || 'Misafir';
 const BENIM_ID = localStorage.getItem('kullanici_id') || 'misafir_' + Math.random().toString(36).substr(2, 9);
 
 console.log('👤 Hoş geldin:', BENIM_ADIM);
-console.log('🆔 ID:', BENIM_ID);
 
 // ==================== AYARLAR ====================
 const checkbox = document.getElementById("yakala");
@@ -73,7 +72,6 @@ function mesajOlustur(mesaj) {
   const div = document.createElement('div');
   const benimMi = mesaj.gonderen === BENIM_ID;
   
-  // Eski class sistemine dön
   div.className = `mesaj ${benimMi ? 'ben' : 'karsi'}`;
   
   const saat = new Date(mesaj.zaman).toLocaleTimeString('tr-TR', {
@@ -81,7 +79,6 @@ function mesajOlustur(mesaj) {
     minute: '2-digit'
   });
   
-  // Gösterilecek isim: kendi mesajınsa "Sen", değilse atan kişinin adı
   const gosterilenAd = benimMi ? 'Sen' : (mesaj.ad || mesaj.kullanici_adi || 'Anonim');
   
   let icerikHTML;
@@ -117,8 +114,6 @@ async function mesajGonder() {
   if (!input) return;
   const metin = input.value.trim();
   if (!metin) return;
-  
-  console.log('Mesaj gönderiliyor:', metin);
   
   if (window.supabaseClient) {
     try {
@@ -165,10 +160,8 @@ if (window.supabaseClient) {
       console.log('📨 Yeni mesaj geldi:', payload.new);
       const yeni = payload.new;
       
-        // BURAYA EKLE: Kendi mesajını filtrele
-      if (yeni.kullanici_id === BENIM_ID) {
-        return; // Kendi mesajını atla, çünkü zaten ekledin
-      }
+      // Kendi mesajını atla (çift eklenmeyi önle)
+      if (yeni.kullanici_id === BENIM_ID) return;
       
       const mesajlar = db.yukle();
       mesajlar.push({
@@ -227,12 +220,6 @@ async function sonMesajlariGetir() {
 
 mesajlariGoster();
 sonMesajlariGetir();
-
-// Üstteki isim alanını güncelle
-const isimAlani = document.getElementById('karsiAd');
-if (isimAlani) {
-    isimAlani.textContent = BENIM_ADIM;
-}
 
 // ==================== FOTOĞRAF ====================
 const kameraBtn = document.querySelector('.kamera');
@@ -293,4 +280,10 @@ if (kameraBtn) {
     
     fileInput.click();
   });
+}
+
+// Üstteki isim alanını güncelle
+const isimAlani = document.getElementById('karsiAd');
+if (isimAlani) {
+    isimAlani.textContent = BENIM_ADIM;
 }
