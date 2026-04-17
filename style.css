@@ -3,6 +3,16 @@ body {
     background-repeat: no-repeat;
     overflow-x: hidden;
     background-attachment: fixed;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+}
+
+/* HTML ve body taşmasını engelle */
+html {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
 }
 
 .ustkare {
