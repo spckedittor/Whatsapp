@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Profil</title>
+  <link rel="stylesheet" href="profil.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+  <div class="beyaz">
+    <button class="geri-butonu" onclick="window.location.href='index.html'">→</button>
+    <img id="profilResim" src="Lolo.JPG" onerror="this.src='default-avatar.png'" class="profile-img">
+    <div class="name" id="profilIsim">Yükleniyor...</div>
+    <i class="fas fa-pencil-alt" id="isimDuzenleBtn"></i>
+    <i class="fas fa-camera" id="profilKameraBtn"></i>
+  </div>
+  <div class="kare">
+    <div class="icindekiler">
+      <a href="#" class="yaz a">Hesap</a>
+      <a href="#" class="yaz a">Gizlilik</a>
+      <a href="#" class="yaz a">Sohbet</a>
+      <a href="#" class="yaz a">Bildirimler</a>
+      <a href="#" class="yaz a">Depolama ve Veriler</a>
+      <a href="#" class="yaz a">Yardım ve FeedBack</a>
+      <button class="cikis" id="cikisBtn">Çıkış Yap</button>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="profil.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,169 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: monospace;
+  background-image: url('oyy.jpeg');
+  min-height: 100vh;
+  background-size: cover;
+  background-attachment: fixed;
+  font-size: 16px;
+}
+
+/* Dark mod */
+body.dark {
+  background-image: url('oyy.jpeg');
+}
+
+.arama {
+  padding: 15px;
+  background: transparent;
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+
+.arama input {
+  width: 75%;
+  padding: 12px 15px;
+  border: none;
+  border-radius: 25px;
+  font-size: 16px;
+  outline: none;
+  background: rgba(255, 255, 255, 0.9);
+}
+
+.dark .arama input {
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+}
+
+.geri-butonu {
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+  border: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  font-size: 20px;
+  cursor: pointer;
+  transform: rotate(180deg);
+  transition: 0.2s;
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%) rotate(180deg);
+}
+
+.geri-butonu:hover {
+  background: rgba(0, 0, 0, 0.9);
+  transform: translateY(-50%) rotate(180deg) scale(1.05);
+}
+
+.arkadaslar-liste {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.arkadas-kart {
+  background: rgba(255, 255, 255, 0.9);
+  margin: 5px 15px;
+  padding: 15px;
+  border-radius: 15px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s;
+  backdrop-filter: blur(5px);
+}
+
+.dark .arkadas-kart {
+  background: rgba(0, 0, 0, 0.7);
+}
+
+.arkadas-kart:hover {
+  transform: scale(1.01);
+}
+
+.arkadas-avatar {
+  width: 50px;
+  height: 50px;
+  background: #4CAF50;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+  flex-shrink: 0;
+}
+
+.arkadas-bilgi {
+  flex: 1;
+}
+
+.arkadas-ad {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: #333;
+}
+
+.dark .arkadas-ad {
+  color: white;
+}
+
+.arkadas-durum {
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.arkadas-durum.online {
+  color: #4caf50;
+}
+
+.arkadas-durum.offline {
+  color: #999;
+}
+
+.arkadas-sil {
+  background: #ff4444;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 20px;
+  font-size: 11px;
+  cursor: pointer;
+  font-family: monospace;
+  transition: 0.2s;
+}
+
+.arkadas-sil:hover {
+  background: #cc0000;
+  transform: scale(1.02);
+}
+
+.yukleniyor {
+  text-align: center;
+  padding: 50px;
+  font-size: 16px;
+  color: #666;
+  background: rgba(255, 255, 255, 0.8);
+  margin: 15px;
+  border-radius: 15px;
+}
+
+.dark .yukleniyor {
+  background: rgba(0, 0, 0, 0.6);
+  color: #aaa;
+}

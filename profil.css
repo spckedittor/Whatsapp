@@ -1,0 +1,119 @@
+body {
+  background-image: url('oyy.jpeg');
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  position: absolute;
+  left: 40px;
+  top: 40px;
+  border: 6px solid transparent;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+.name {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 70px;
+  font-family: monospace;
+  font-size: 16px;
+}
+
+.kare {
+  height: 450px;
+  width: 90%;
+  border: 1px solid black;
+  position: absolute;
+  top: 200px;
+  left: 50%;
+  transform: translateX(-50%);
+  overflow-y: auto;
+  border-radius: 15px;
+  backdrop-filter: blur(10px);
+}
+
+.icindekiler {
+  display: flex;
+  flex-direction: column;
+}
+
+.yaz {
+  text-decoration: none;
+  color: black;
+  font-family: monospace;
+  font-size: 18px;
+  margin-top: 20px;
+  margin-left: 20px;
+}
+
+.a {
+  border-bottom: 1px solid black;
+  padding-bottom: 8px;
+}
+
+.cikis {
+  height: 60px;
+  width: 95%;
+  border: 1px solid black;
+  border-radius: 12px;
+  color: #000;
+  background: #e74c3c;
+  position: relative;
+  top: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 15px;
+}
+
+.geri-butonu {
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+  border: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  font-size: 20px;
+  cursor: pointer;
+  transform: rotate(180deg);
+  transition: 0.2s;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+}
+
+.geri-butonu:hover {
+  background: rgba(0, 0, 0, 0.9);
+  transform: rotate(180deg) scale(1.05);
+}
+
+.beyaz {
+  width: 100%;
+  height: 100px;
+  background: wheat;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.fa-pencil-alt {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  margin-left: 10px;
+  display: flex;
+  font-size: 20px;
+}
+
+.fa-camera {
+  position: absolute;
+  right: 40px;
+  top: 10px;
+  margin-left: 10px;
+  display: flex;
+  font-size: 20px;
+}

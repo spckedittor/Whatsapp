@@ -1,0 +1,261 @@
+body {
+  font-family: monospace;
+  background-image: url('oyy.jpeg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  margin: 0;
+  padding: 20px;
+  min-height: 100vh;
+  transition: all 0.3s ease;
+}
+
+/* Dark mod */
+body.dark {
+  background-image: url('oyy.jpeg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+.arama {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.geri-butonu {
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+  border: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  font-size: 20px;
+  cursor: pointer;
+  transform: rotate(180deg);
+  transition: 0.2s;
+}
+
+.geri-butonu:hover {
+  background: rgba(0, 0, 0, 0.9);
+  transform: rotate(180deg) scale(1.05);
+}
+
+#arama-input {
+  flex: 1;
+  padding: 10px 15px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 25px;
+  font-size: 16px;
+  font-family: monospace;
+  outline: none;
+  background: rgba(255, 255, 255, 0.9);
+}
+
+.dark #arama-input {
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.dark #arama-input::placeholder {
+  color: #aaa;
+}
+
+#arama-input:focus {
+  border-color: #4CAF50;
+}
+
+.kullanici-liste {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.kullanici-item {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 12px 15px;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 15px;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5px);
+}
+
+.dark .kullanici-item {
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(5px);
+}
+
+.kullanici-item:hover {
+  transform: scale(1.01);
+  background: rgba(255, 255, 255, 1);
+}
+
+.dark .kullanici-item:hover {
+  background: rgba(0, 0, 0, 0.85);
+}
+
+.kullanici-avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  font-weight: bold;
+  color: white;
+  flex-shrink: 0;
+}
+
+.kullanici-bilgi {
+  flex: 1;
+}
+
+.kullanici-isim {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 4px;
+  color: #333;
+}
+
+.dark .kullanici-isim {
+  color: white;
+}
+
+.kullanici-email {
+  font-size: 12px;
+  color: #666;
+}
+
+.dark .kullanici-email {
+  color: #aaa;
+}
+
+.kullanici-badge {
+  background: #4CAF50;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  padding-left: 10px;
+  padding-right: 10px;
+  border-radius: 10px;
+  font-size: 11px;
+  color: white;
+  
+}
+
+.yukleniyor {
+  text-align: center;
+  padding: 50px;
+  font-size: 18px;
+  color: #666;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 15px;
+}
+
+.dark .yukleniyor {
+  color: #aaa;
+  background: rgba(0, 0, 0, 0.6);
+}
+
+.arkadas-butonu {
+  background: #2196F3;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-family: monospace;
+  cursor: pointer;
+  transition: 0.2s;
+  white-space: nowrap;
+}
+
+.arkadas-butonu:hover {
+  transform: scale(1.02);
+  background: #1976D2;
+}
+
+.arkadas-butonu.eklendi {
+  background: #4CAF50;
+}
+
+.arkadas-butonu.eklendi:hover {
+  background: #388E3C;
+}
+
+.kullanici-durum {
+  font-size: 11px;
+  color: #666;
+  margin-top: 2px;
+}
+
+.dark .kullanici-durum {
+  color: #aaa;
+}
+
+.kullanici-butonlar {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.mesaj-butonu {
+  background: #4CAF50;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-family: monospace;
+  cursor: pointer;
+  transition: 0.2s;
+  white-space: nowrap;
+}
+
+.mesaj-butonu:hover {
+  transform: scale(1.02);
+  background: #45a049;
+}
+
+.arkadas-butonu {
+  background: #2196F3;
+  color: white;
+  border: none;
+  padding: 10px 14px;
+  border-radius: 10px;
+  font-size: 12px;
+  font-family: monospace;
+  cursor: pointer;
+  transition: 0.2s;
+  white-space: nowrap;
+}
+
+.arkadas-butonu:hover {
+  transform: scale(1.02);
+  background: #1976D2;
+}
+
+.arkadas-butonu.eklendi {
+  background: #4CAF50;
+}
+
+.arkadas-butonu.eklendi:hover {
+  background: #388E3C;
+}
+
+.kullanici-durum {
+  font-size: 11px;
+  color: #666;
+  margin-top: 2px;
+}
+
+.dark .kullanici-durum {
+  color: #aaa;
+}

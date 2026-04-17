@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Arkadaşlarım</title>
+  <link rel="stylesheet" href="arkadaslar.css">
+</head>
+<body>
+  
+  <div class="arama">
+    <button class="geri-butonu" onclick="history.back()">→</button>
+    <input type="text" id="arama-input" placeholder="Arkadaş ara...">
+  </div>
+  
+  <div class="arkadaslar-liste" id="arkadaslar-liste">
+    <div class="yukleniyor">Yükleniyor...</div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="arkadaslar.js"></script>
+</body>
+</html>
