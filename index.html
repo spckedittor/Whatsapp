@@ -181,9 +181,13 @@
 <!-- Service Worker Kaydı -->
 <script>
   if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('/Whatsapp/sw.js')
-      .then(reg => console.log('SW kayıtlı:', reg))
-      .catch(err => console.log('SW hatası:', err));
+    window.addEventListener('load', function() {
+      navigator.serviceWorker.register('/Whatsapp/sw.js').then(function(reg) {
+        console.log('✅ Service Worker kayıtlı:', reg);
+      }).catch(function(err) {
+        console.log('❌ Service Worker hatası:', err);
+      });
+    });
   }
 </script>
 <script>
