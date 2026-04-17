@@ -411,8 +411,8 @@ input:checked+.circles .circle {
 
 .govde {
     position: absolute;
-    top: 85px;
-    bottom: 85px;
+    top: 90px;
+    bottom: 90px;
     left: 0;
     right: 0;
     display: flex;
