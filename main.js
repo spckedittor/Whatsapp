@@ -1,3 +1,24 @@
+// Ekran boyutuna göre govde ayarla
+function govdeBoyutunuAyarla() {
+  const govde = document.querySelector('.govde');
+  if (!govde) return;
+  
+  const ustKare = document.querySelector('.ustkareic');
+  const altKare = document.querySelector('.altkareic');
+  
+  if (ustKare && altKare) {
+    const ustYukseklik = ustKare.offsetHeight;
+    const altYukseklik = altKare.offsetHeight;
+    
+    govde.style.top = ustYukseklik + 'px';
+    govde.style.bottom = altYukseklik + 'px';
+  }
+}
+
+// Sayfa yüklendiğinde ve yeniden boyutlandırıldığında
+window.addEventListener('load', govdeBoyutunuAyarla);
+window.addEventListener('resize', govdeBoyutunuAyarla);
+
 // ==================== SUPABASE ====================
 window.supabaseClient = null;
 
