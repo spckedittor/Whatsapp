@@ -217,7 +217,7 @@ html {
 .yazimenu {
     display: flex;
     position: absolute;
-    top: 17px;
+    top: 58px;
     left: 80px;
     font-size: 35px;
     letter-spacing: 5px;
@@ -235,7 +235,7 @@ html {
     top: 0;
     left: 0;
     z-index: 1;
-    padding-top: 80px;
+    padding-top: 115px;
     transition: 0.3s;
 }
 
@@ -396,7 +396,7 @@ input:checked+.circles .circle {
 .govde {
     position: absolute;
     top: 135px;
-    bottom: 85px;
+    bottom: 88px;
     left: 0;
     right: 0;
     display: flex;
