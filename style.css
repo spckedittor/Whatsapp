@@ -21,13 +21,17 @@ html {
 }
 
 .ustkareic {
-    height: 85px;
+    height: 115px;
     margin: 0;
     width: 100%;
     border: 1px solid black;
     background-color: rgba(255, 255, 255, 0.8);
-    position: absolute;
+    position: fixed;
+    display: flex;
     top: 0;
+    align-items: flex-end;
+    padding-bottom: 10px;
+    z-index: 10;
 }
 
 .altkare {
@@ -160,47 +164,14 @@ html {
     color: #000;
 }
 
-.video-call-btn {
-    position: absolute;
-    top: 25px;
-    right: 65px;
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    height: 20px;
-}
-
-.video-call-btn svg {
-    width: 33px;
-    height: 33px;
-    stroke: black;
-    stroke-width: 1.3;
-}
-
-.call-outline {
-    position: absolute;
-    top: 30px;
-    right: 25px;
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    height: 20px;
-}
-
-.call-outline svg {
-    width: 25px;
-    height: 25px;
-    stroke: black;
-    stroke-width: 1.5;
-}
-
 .profile-img {
     border-radius: 100%;
     height: 70px;
     width: 70px;
     position: absolute;
-    top: 7.5px;
+    top: auto;
     left: 80px;
+    bottom: 10px;
 }
 
 .isim {
@@ -208,7 +179,8 @@ html {
     position: absolute;
     font-size: 25px;
     left: 160px;
-    top: 27px;
+    bottom: 30px;
+    top: auto;
 }
 
 .ucak {
@@ -230,7 +202,8 @@ html {
     display: flex;
     cursor: pointer;
     position: absolute;
-    top: 20px;
+    bottom: 25px;
+    top: auto;
     left: 20px;
     font-size: 30px;
     background-color: #afb3b7;
@@ -406,12 +379,13 @@ input:checked+.circles .circle {
 
 #yaziyor {
     position: absolute;
-    top: 60px;
-    left: 160px;
+    bottom: 5px;
+    left: 155px;
     font-size: 14px;
     font-family: monospace;
     display: none;
     opacity: 0.7;
+    top: auto;
 }
 
 /* dark mode uyum */
@@ -421,8 +395,8 @@ input:checked+.circles .circle {
 
 .govde {
     position: absolute;
-    top: 85px;
-    bottom: 0;
+    top: 135px;
+    bottom: 100px;
     left: 0;
     right: 0;
     display: flex;
@@ -431,7 +405,8 @@ input:checked+.circles .circle {
     overflow-y: auto;
     overflow-x: hidden;
     box-sizing: border-box;
-    max-height: calc(100vh - 170px);
+    max-height: calc(100vh - 180px);
+    z-index: 1;
 }
 
 .mesaj {
