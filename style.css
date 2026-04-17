@@ -161,7 +161,7 @@ html {
     position: absolute;
     display: flex;
     right: 30px;
-    bottom: 25px;
+    bottom: 45px;
     color: #000;
 }
 
@@ -190,8 +190,8 @@ html {
     transform: rotate(45deg);
     color: black;
     position: absolute;
-    bottom: 23px;
-    right: 90px;
+    bottom: 44px;
+    right: 95px;
     z-index: 3;
 }
 
@@ -397,7 +397,7 @@ input:checked+.circles .circle {
 .govde {
     position: absolute;
     top: 135px;
-    bottom: 88px;
+    bottom: 85px;
     left: 0;
     right: 0;
     display: flex;
