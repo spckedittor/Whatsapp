@@ -905,3 +905,348 @@ input:checked+.circles .circle {
         bottom: 95px;
     }
 }
+
+/* ============================================
+   RESPONSIVE FIX - Android/Uygulama Uyumluluğu
+   ============================================ */
+
+/* 1. Viewport düzeltmesi */
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
+    -webkit-text-size-adjust: 100%;
+}
+
+/* 2. Üst bar düzeltmesi */
+.ustkareic {
+    height: 115px;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: flex-end;
+    padding-bottom: 10px;
+    z-index: 50;
+    box-sizing: border-box;
+}
+
+/* 3. Profil resmi ve isim */
+.profile-img {
+    border-radius: 50%;
+n    height: 70px;
+    width: 70px;
+    position: absolute;
+    left: 80px;
+    bottom: 10px;
+    object-fit: cover;
+}
+
+.isim {
+    font-family: monospace;
+    position: absolute;
+    font-size: 25px;
+    left: 160px;
+    bottom: 30px;
+    white-space: nowrap;
+    max-width: calc(100% - 200px);
+}
+
+/* 4. Menü butonu */
+.cizgi {
+    position: absolute;
+    bottom: 25px;
+    left: 20px;
+    font-size: 30px;
+    background-color: #afb3b7;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 70;
+    border-radius: 4px;
+}
+
+/* 5. Mesaj alanı */
+.govde {
+    position: fixed;
+    top: 115px;
+    bottom: 105px;
+    left: 0;
+    right: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    overflow-y: auto;
+    z-index: 1;
+    box-sizing: border-box;
+}
+
+/* 6. Mesaj balonları - KESİN ÇÖZÜM */
+.mesaj {
+    max-width: 75%;
+    min-width: 60px;
+    padding: 8px 12px;
+    margin: 5px 10px;
+    border-radius: 15px;
+    font-family: monospace;
+    word-wrap: break-word;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+}
+
+/* Benim mesajım - sağda */
+.ben {
+    align-self: flex-end;
+    background-color: #a0e7a0;
+    margin-left: auto;
+    margin-right: 10px;
+    border-bottom-right-radius: 5px;
+}
+
+/* Karşı taraf - solda */
+.karsi {
+    align-self: flex-start;
+    background-color: #ddd;
+    margin-left: 10px;
+    margin-right: auto;
+    border-bottom-left-radius: 5px;
+}
+
+/* 7. Alt bar */
+.altkareic {
+    height: 105px;
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+    z-index: 100;
+    box-sizing: border-box;
+}
+
+/* 8. Input */
+.input {
+    height: 40px;
+    width: calc(100% - 140px);
+    font-size: 16px;
+    margin-left: 60px;
+    margin-right: 80px;
+    outline: none;
+    border: 1px solid black;
+    border-radius: 20px;
+    padding: 0 15px;
+    box-sizing: border-box;
+}
+
+/* 9. + butonu */
+.artibtn-a {
+    display: flex;
+    position: absolute;
+    bottom: 27px;
+    left: 6px;
+    font-size: 35px;
+    border: 1px solid black;
+    border-radius: 50%;
+    justify-content: center;
+    align-items: center;
+    width: 45px;
+    height: 45px;
+    background-color: #5a636a;
+    z-index: 102;
+}
+
+/* 10. Gönder butonu */
+.ucak {
+    border: none;
+    background: transparent;
+    transform: rotate(45deg);
+    color: black;
+    position: absolute;
+    bottom: 35px;
+    right: 55px;
+    z-index: 101;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* 11. Kamera butonu */
+.kamera {
+    position: absolute;
+    right: 15px;
+    bottom: 35px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    z-index: 101;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* 12. Artielementleri - MESAJLARIN ÜSTÜNDE */
+.artielementleri {
+    border: 1px solid black;
+    display: none;
+    width: 280px;
+    position: fixed;
+    bottom: 110px;
+    left: 20px;
+    background: #ccc;
+    border-radius: 15px;
+    padding: 20px 15px;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.3s ease;
+    z-index: 9999;
+    box-sizing: border-box;
+}
+
+#artitikla:checked ~ .artielementleri {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* 13. Menü öğeleri */
+.ust-satir, .alt-satir {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+}
+
+.menu-oge {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+}
+
+.daire {
+    width: 45px;
+    height: 45px;
+    background: #5a636a;
+    border-radius: 50%;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.menu-oge i {
+    font-size: 24px;
+    color: #000;
+}
+
+.yazi {
+    font-size: 12px;
+    color: #000;
+    font-family: monospace;
+    text-align: center;
+}
+
+/* 14. Yan menü */
+.yan {
+    display: block;
+    width: 0;
+    overflow: hidden;
+    height: 100vh;
+    background-color: #5a636a;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 60;
+    padding-top: 115px;
+    transition: 0.3s;
+    box-sizing: border-box;
+}
+
+.check:checked ~ .yan {
+    width: 200px;
+    padding-left: 20px;
+}
+
+/* 15. Dark mode */
+.dark .ustkareic,
+.dark .altkareic {
+    background-color: rgba(30, 30, 30, 0.95);
+}
+
+.dark .input {
+    background-color: #222;
+    color: white;
+    border-color: #555;
+}
+
+.dark .ben {
+    background-color: #2e7d32;
+}
+
+.dark .karsi {
+    background-color: #444;
+}
+
+/* 16. Küçük ekranlar için */
+@media screen and (max-width: 380px) {
+    .profile-img {
+        width: 55px;
+        height: 55px;
+        left: 70px;
+    }
+    
+    .isim {
+        font-size: 20px;
+        left: 135px;
+    }
+    
+    .input {
+        width: calc(100% - 130px);
+        margin-left: 55px;
+        margin-right: 75px;
+    }
+    
+    .artibtn-a {
+        width: 40px;
+        height: 40px;
+        font-size: 30px;
+    }
+    
+    .artielementleri {
+        width: 260px;
+        left: 10px;
+    }
+}
+
+/* 17. Çok küçük ekranlar */
+@media screen and (max-width: 320px) {
+    .profile-img {
+        width: 45px;
+        height: 45px;
+        left: 60px;
+    }
+    
+    .isim {
+        font-size: 18px;
+        left: 115px;
+    }
+    
+    .input {
+        width: calc(100% - 120px);
+        margin-left: 50px;
+        font-size: 14px;
+    }
+}
